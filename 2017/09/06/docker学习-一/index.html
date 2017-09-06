@@ -147,23 +147,19 @@
         <blockquote>
 <p>最近在学习docker，然后准备想使用docker为自己的小团队部署一个Owncloud，结果因为一些奇奇怪怪的问题使得无法使用，所以写写我的遇见的问题。</p>
 </blockquote>
-<p>#关于docker</p>
-<blockquote>
+<h1 id="关于docker"><a href="#关于docker" class="headerlink" title="关于docker"></a>关于docker</h1><blockquote>
 <p>docker是一个可以将应用和依赖打包并部署到一个容器中，发布到任意Linux主机，这种方式实现了虚拟化，容器化，解决应用的以来问题，实现devops….（上面都是我自己写的）…</p>
 </blockquote>
-<p>#下载docker</p>
-<blockquote>
+<h1 id="下载docker"><a href="#下载docker" class="headerlink" title="下载docker"></a>下载docker</h1><blockquote>
 <p>在Ubuntu控制台里输入<code>apt-get install docker</code>，就下好了。</p>
 </blockquote>
-<p>#获取镜像</p>
-<blockquote>
+<h1 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h1><blockquote>
 <p>因为自己本身有Linux的操作经验，所以学习命令啥的不难（大一真机Linux跑了好久。。后面为了方便不得不切换回了win）。</p>
 <p>获取MySql镜像：<br><code>docker pull mysql:5.7</code></p>
 <p>启动MySQL服务：<br><code>docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7</code></p>
 <p>ps.Linux很多命令行工具的用法都可以看手册知道，英语不难，对于我这个四级不过的来说，都是很简单的。。。</p>
 </blockquote>
-<p>#获取php:5.6-apache镜像,编写Dockerfile创建一个owncloud的镜像（参考Linux公社的教程）</p>
-<blockquote>
+<h1 id="获取php-5-6-apache镜像-编写Dockerfile创建一个owncloud的镜像（参考Linux公社的教程）"><a href="#获取php-5-6-apache镜像-编写Dockerfile创建一个owncloud的镜像（参考Linux公社的教程）" class="headerlink" title="获取php:5.6-apache镜像,编写Dockerfile创建一个owncloud的镜像（参考Linux公社的教程）"></a>获取php:5.6-apache镜像,编写Dockerfile创建一个owncloud的镜像（参考Linux公社的教程）</h1><blockquote>
 <ol>
 <li>首先我跑owncloud官网wget了一个安装包。<br><code>https://download.owncloud.org/community/owncloud-9.0.1.zip</code></li>
 <li>然后新建一个文件夹image-owncloud</li>
@@ -176,8 +172,7 @@
 <p>接着编写Docerfile文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">FROM php:5.6-apache</div><div class="line"></div><div class="line">RUN apt-get update &amp;&amp; apt-get install -y \</div><div class="line">libfreetype6-dev \</div><div class="line">libjpeg62-turbo-dev \</div><div class="line">libmcrypt-dev \</div><div class="line">libpng12-dev \</div><div class="line">&amp;&amp; docker-php-ext-install -j$(nproc) mcrypt pdo_mysql\</div><div class="line">&amp;&amp; docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \</div><div class="line">&amp;&amp; docker-php-ext-install -j$(nproc) gd</div><div class="line"></div><div class="line">COPY owncloud/ /var/www/html/</div><div class="line">COPY init.sh /var/www/html/init.sh</div><div class="line">RUN chmod 777 /var/www/html/init.sh</div><div class="line">RUN /var/www/html/init.sh</div><div class="line">RUN rm /var/www/html/init.sh</div></pre></td></tr></table></figure></p>
 <p>启动镜像<br><code>docker run --name owncloud --link mysql:mysql -d -p 80:80 owncloud</code></p>
 </blockquote>
-<p>#尾声</p>
-<blockquote>
+<h1 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h1><blockquote>
 <p>按道理。。应该能用了，但是装载时，发现php没用zip模块，然后我去安装了php的zip模块。<br>使用<code>docker exec -it owncloud /bin/bash</code>进入容器<br>1.<code>wget http://pecl.php.NET/get/zip</code></p>
 <p>2.解压<code>tar -zxvf zip</code></p>
 <p>3.cd到目录<br>4.然后使用phpize指令<br>5.<code>./configure --with-php-config=/usr/local/bin/php5/php-config</code><br>6.<code>make</code><br>7.<code>make install</code><br>8.编译出的zip.so放入输出的路径里<br>9.然后在php.ini里配置<code>extension = /usr/local/php/lib/php/extensions/no-debug-zts-20151012/zip.so</code><br>把<code>zlib.output_compression = Off</code> 改为<code>zlib.output_compression = On</code></p>
@@ -185,7 +180,7 @@
 <li>重启应用 </li>
 </ol>
 </blockquote>
-<h3 id="使用php-m看见了模块加载了-依旧不能用-最近在想想怎么解决（对了还有容器里有一个php和一个php5-并不知道是不是同一个应用，于是我用alias别名了php5，还是不行-无力ing）"><a href="#使用php-m看见了模块加载了-依旧不能用-最近在想想怎么解决（对了还有容器里有一个php和一个php5-并不知道是不是同一个应用，于是我用alias别名了php5，还是不行-无力ing）" class="headerlink" title="使用php -m看见了模块加载了..依旧不能用..最近在想想怎么解决（对了还有容器里有一个php和一个php5,并不知道是不是同一个应用，于是我用alias别名了php5，还是不行..无力ing）"></a>使用php -m看见了模块加载了..依旧不能用..最近在想想怎么解决（对了还有容器里有一个php和一个php5,并不知道是不是同一个应用，于是我用alias别名了php5，还是不行..无力ing）</h3>
+<h3 id="使用php-m看见了模块加载了-依旧不能用-最近在想想怎么解决（对了还有容器里有一个php和一个php5-并不知道是不是同一个应用，于是我用alias别名了php5，还是不行-无力ing），我还得学学Dockerfile的编写，docker入门简单，深入很难，况且还有一个k8s"><a href="#使用php-m看见了模块加载了-依旧不能用-最近在想想怎么解决（对了还有容器里有一个php和一个php5-并不知道是不是同一个应用，于是我用alias别名了php5，还是不行-无力ing），我还得学学Dockerfile的编写，docker入门简单，深入很难，况且还有一个k8s" class="headerlink" title="使用php -m看见了模块加载了..依旧不能用..最近在想想怎么解决（对了还有容器里有一个php和一个php5,并不知道是不是同一个应用，于是我用alias别名了php5，还是不行..无力ing），我还得学学Dockerfile的编写，docker入门简单，深入很难，况且还有一个k8s"></a>使用php -m看见了模块加载了..依旧不能用..最近在想想怎么解决（对了还有容器里有一个php和一个php5,并不知道是不是同一个应用，于是我用alias别名了php5，还是不行..无力ing），我还得学学Dockerfile的编写，docker入门简单，深入很难，况且还有一个k8s</h3>
     </article>
     <!-- 前后页  -->
     <ul class="post-pager">
