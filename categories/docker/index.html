@@ -64,7 +64,28 @@
     <script src="/scripts/main.js" defer></script>
     <!-- 百度统计  -->
     
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+        var hm = document.createElement("script");
+        hm.src = "true";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
     <!-- 谷歌统计  -->
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'true', 'auto');
+        ga('send', 'pageview');
+    </script>
     
 </head>
     
@@ -251,11 +272,11 @@ docker是一个可以将应用和依赖打包并部署到一个容器中，发�
         <div class="sidebar-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name"><a href= "#">docker</a></span>
+    
         <span class="sidebar-tag-name"><a href= "#">web</a></span>
     
         <span class="sidebar-tag-name"><a href= "#">blog</a></span>
-    
-        <span class="sidebar-tag-name"><a href= "#">docker</a></span>
     
     </div>
     <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
