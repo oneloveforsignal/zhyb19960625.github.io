@@ -132,6 +132,42 @@
     
     
         <article class="index-post">
+            <a class="content-show-full" href = "/2017/09/10/并发编程（二）/" >
+                    <h2 class="abstract-title">
+                        
+                        <span>并发编程（二）</span>
+                    </h2>
+                <div class="abstract-content">
+                    信号（signal）
+操作系统信号是IPC中唯一一种异步的通讯方式，其本质为用软件来看模拟硬件的中断机制。作用为用于通知进程某个事件发生。如，Linux操作系统中，按下Ctrl+C中止信息。kill指令也是同样有信号机制参与。Linux中的信号量有以”SIG”为前缀。可以通过kill -l查看kill指令支持的信号。个人理解:信号机制是Go语言并发中切换goroutine的方式。
+
+os/signal
+Go语言用到了通道类型来监听信号的到来。
+
+接口类型os.Signal1234type Signal interface &#123;	String() string	Signal() /...
+                </div>
+            </a>
+            <div class="abstract-post-meta">
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-href = Go>Go</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-href = 操作系统>操作系统</a>
+    
+</div>
+                
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2017/09/10</span>
+                </div>
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
             <a class="content-show-full" href = "/2017/09/06/并发编程（一）/" >
                     <h2 class="abstract-title">
                         
@@ -265,7 +301,24 @@
     
     
     
-    <div class="total-archive"> Total : 6 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 7 </div>
     
     <div class="post-archive">
     
@@ -274,6 +327,11 @@
     
     <div class="archive-year"> 2017 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/10</span><a class="archive-post-title" href= "/2017/09/10/并发编程（二）/" >并发编程（二）</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -319,55 +377,6 @@
         <span class="sidebar-tag-name"><a href= "#">blog</a></span>
     
         <span class="sidebar-tag-name"><a href= "#">Go</a></span>
-    
-        <span class="sidebar-tag-name"><a href= "#">操作系统</a></span>
-    
-    </div>
-    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
-    缺失模块。<br/>
-    1、请确保node版本大于6.2<br/>
-    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
-    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
-    3、在根目录_config.yml里添加配置：
-    <pre style="color: #888; font-size: 0.6rem;">
-jsonContent:
-  meta: false
-  pages: false
-  posts:
-    title: true
-    date: true
-    path: true
-    text: false
-    raw: false
-    content: false
-    slug: false
-    updated: false
-    comments: false
-    link: false
-    permalink: false
-    excerpt: false
-    categories: false
-    tags: true</pre>
-    </div> 
-    <div class="sidebar-tag-list"></div>
-</div>
-    </div>
-</div> 
-    <script>
-    var jsInfo = {
-        root: '/'
-    }
-</script>
-    <!-- 不蒜子  -->
-    
-    <!-- CNZZ统计  -->
-    
-    </div>
-    </body>
-</html>
-
-
-     <span class="sidebar-tag-name"><a href= "#">Go</a></span>
     
         <span class="sidebar-tag-name"><a href= "#">操作系统</a></span>
     

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
     <title>
         
-        Docker学习（二) · OneLoveForSignal
+        并发编程（二） · OneLoveForSignal
         
     </title>
     <link rel="icon" href= /assests/touxiang.png>
@@ -102,7 +102,7 @@
                 <a href="/" >OneLoveForSignal</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Docker学习（二)</a>
+                <a href="#" class="post-name">并发编程（二）</a>
             </div>
     </div>
     
@@ -123,7 +123,7 @@
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Docker学习（二)
+            并发编程（二）
             <!-- 404 -->
             
         </h1>
@@ -141,20 +141,20 @@
             
                 <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-href = docker>docker</a>
+        <a class="post-tag" href="javascript:void(0);" data-href = Go>Go</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-href = go>go</a>
+        <a class="post-tag" href="javascript:void(0);" data-href = 操作系统>操作系统</a>
     
 </div>
             
             <div class="post-intro-meta">
                 <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2017/09/08</span>
+                <span class="post-intro-time">2017/09/10</span>
             </div>
             <!-- 
 
 <div class="post-share iconfont-archer">
-    <ul class="share-box" data-href = "/2017/09/08/docker学习（二/" data-title = "Docker学习（二)" >
+    <ul class="share-box" data-href = "/2017/09/10/并发编程（二）/" data-title = "并发编程（二）" >
         <li class="to-weibo">分享到微博</li>
         <li class="to-wechat">分享到微信</li>
         <li class="to-qq">分享到QQ</li>
@@ -167,47 +167,33 @@
         <div class="container">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="Docker的架构"><a href="#Docker的架构" class="headerlink" title="Docker的架构"></a>Docker的架构</h1><blockquote>
-<p>From Docker源码分析（孙宏亮）</p>
+        <h2 id="信号（signal）"><a href="#信号（signal）" class="headerlink" title="信号（signal）"></a>信号（signal）</h2><blockquote>
+<p>操作系统信号是IPC中唯一一种异步的通讯方式，其本质为用软件来看模拟硬件的中断机制。作用为用于通知进程某个事件发生。如，Linux操作系统中，按下Ctrl+C中止信息。kill指令也是同样有信号机制参与。<br>Linux中的信号量有以”SIG”为前缀。可以通过<code>kill -l</code>查看kill指令支持的信号。<br>个人理解:信号机制是Go语言并发中切换goroutine的方式。</p>
 </blockquote>
-<h2 id="Docker总架构"><a href="#Docker总架构" class="headerlink" title="Docker总架构"></a>Docker总架构</h2><p><img src="/08/docker学习（二/./image/docker.png" alt="image"></p>
-<h2 id="Docker-Client"><a href="#Docker-Client" class="headerlink" title="Docker Client"></a>Docker Client</h2><blockquote>
-<p>DockerClient用于与DockerDaemon建立通讯，用户使用docker指令使用DockerClient，发起众多的Docker容器管理请求。</p>
+<h2 id="os-signal"><a href="#os-signal" class="headerlink" title="os/signal"></a>os/signal</h2><blockquote>
+<p>Go语言用到了通道类型来监听信号的到来。</p>
 </blockquote>
-<h2 id="Docker-Daemon"><a href="#Docker-Daemon" class="headerlink" title="Docker Daemon"></a>Docker Daemon</h2><blockquote>
-<p>DockerDaemon是Docker架构中一个常驻在后台的系统进程，其主要作用在于两方面：</p>
-<ul>
-<li>接受并处理DockerClient发送的请求</li>
-<li>管理所有的Docker<br>在DockerDaemon运行时候。会启动一个Server,负责接受DockerClient发送的请求，然后Server会通过路由分发调度，找到对应的Handler来处理请求。<br>DockerDaemon的架构有三个部分：DockerServer、Engine和Job。</li>
-</ul>
+<h3 id="接口类型os-Signal"><a href="#接口类型os-Signal" class="headerlink" title="接口类型os.Signal"></a>接口类型os.Signal</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">type</span> Signal <span class="keyword">interface</span> &#123;</div><div class="line">	String() <span class="keyword">string</span></div><div class="line">	Signal() <span class="comment">//to distinguish from other Stringers</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>从接口类型看，Signal方法并没有实际意义。仅为os.Signal接口类型的一个标识。</p>
 </blockquote>
-<h2 id="Docker-Daemone架构图"><a href="#Docker-Daemone架构图" class="headerlink" title="Docker Daemone架构图"></a>Docker Daemone架构图</h2><p><img src="/08/docker学习（二/image/DockerDaemon.png" alt="image"></p>
-<h3 id="Docker-Server"><a href="#Docker-Server" class="headerlink" title="Docker Server"></a>Docker Server</h3><blockquote>
-<p>其作用在Docker架构中用于服务于DockerClient,接受并调度分发DockerClient发送的请求。图1-3</p>
+<h3 id="func-Notify-c-chan-lt-os-Signal-sig-…os-Signal"><a href="#func-Notify-c-chan-lt-os-Signal-sig-…os-Signal" class="headerlink" title="func Notify(c chan&lt;-os.Signal,sig …os.Signal)"></a>func Notify(c chan&lt;-os.Signal,sig …os.Signal)</h3><blockquote>
+<p>这个是Go的os.signal标准库中提供的函数。<br>第一个参数需要传入一个os.Signal类型的值的通道（真绕口。。）,也就是指定你的signal传入谁的通道，第二个参数是变长参数。<br>代码：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"os"</span></div><div class="line">	<span class="string">"os/signal"</span></div><div class="line">	<span class="string">"syscall"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	sigRecv := <span class="built_in">make</span>(<span class="keyword">chan</span> os.Signal, <span class="number">1</span>)</div><div class="line">	sigs := []os.Signal&#123;syscall.SIGINT, syscall.SIGQUIT&#125;</div><div class="line">	signal.Notify(sigRecv, sigs...)</div><div class="line">	<span class="keyword">for</span> sig := <span class="keyword">range</span> sigRecv &#123;</div><div class="line">		fmt.Printf(<span class="string">"Recv a sig: %s\n "</span>, sig)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>类Unix操作系统中有两种既不能被自行处理，亦不会被忽略，SIGKILL和SIGSTOP,对它们的响应只可以是默认的系统操作，所以<strong>signal.Notify(sigRecv,syscall.SIGKILL,syscall.SIGSTOP)</strong>不会改变进程对SIGKILL和SIGSTOP的动作处理。所以就需要使用os/signal中的Stop函数处理。</p>
 </blockquote>
-<h3 id="Docker-Engine"><a href="#Docker-Engine" class="headerlink" title="Docker Engine"></a>Docker Engine</h3><blockquote>
-<p>顾名思义，Engine是Docker架构中的运行引擎，即核心模块，Engine存储大量容器信息，管理Job的执行，Docker中大部分任务的执行都需要Engine协助，通过Engine匹配相应的Job完成Job执行。<br>Engine有时还接管DockerDaemon的某些特定工作，DockerDaemon退出时，Engine负责善后。</p>
-</blockquote>
-<h3 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h3><blockquote>
-<p>Engine内部最基本的工作执行单元。DockerDaemon可以完成的每一项工作都会呈现为一个Job。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<p>因为是记笔记，所以比较简洁，参照于《现代操作系统》和《go并发编程》。<br>Go代码包中的Notify和Stop函数，都是以signal接收通道为唯一标识来对应信号集合处理。<br>在学并发编程的时候，要对操作系统的进程管理有很好理解，不然我又要栽跟头。（= _=）！</p>
 </blockquote>
 
     </article>
     <!-- 前后页  -->
     <ul class="post-pager">
         
-            <li class="previous">
-                <a href= "/2017/09/09/Docker源码分析1/" title= Docker源码分析1 >
-                    <span>Previous Post</span>
-                    <span>Docker源码分析1</span>
-                </a>
-            </li>
-        
         
             <li class="next">
-                <a href= "/2017/09/06/docker学习-一/" title= docker学习(一) >
+                <a href= "/2017/09/09/Docker源码分析1/" title= Docker源码分析1 >
                     <span>Next Post</span>
-                    <span>docker学习(一)</span>
+                    <span>Docker源码分析1</span>
                 </a>
             </li>
         
