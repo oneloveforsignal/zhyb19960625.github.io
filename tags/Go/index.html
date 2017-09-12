@@ -132,19 +132,24 @@
     
     
         <article class="index-post">
-            <a class="content-show-full" href = "/2017/09/10/并发编程（二）/" >
+            <a class="content-show-full" href = "/2017/09/09/Docker源码分析1/" >
                     <h2 class="abstract-title">
                         
-                        <span>并发编程（二）</span>
+                        <span>Docker源码分析1</span>
                     </h2>
                 <div class="abstract-content">
-                    信号（signal）
-操作系统信号是IPC中唯一一种异步的通讯方式，其本质为用软件来看模拟硬件的中断机制。作用为用于通知进程某个事件发生。如，Linux操作系统中，按下Ctrl+C中止信息。kill指令也是同样有信号机制参与。Linux中的信号量有以”SIG”为前缀。可以通过kill -l查看kill指令支持的信号。个人理解:信号机制是Go语言并发中切换goroutine的方式。
+                    Docker的架构
+From Docker源码分析（孙宏亮）
 
-os/signal
-Go语言用到了通道类型来监听信号的到来。
+Docker总架构
+Docker Client
+DockerClient用于与DockerDaemon建立通讯，用户使用docker指令使用DockerClient，发起众多的Docker容器管理请求。
 
-接口类型os.Signal1234type Signal interface &#123;	String() string	Signal() /...
+Docker Daemon
+DockerDaemon是Docker架构中一个常驻在后台的系统进程，其主要作用在于两方面：
+
+接受并处理DockerClient发送的请求
+管理所有的Docker在DockerDaemon运行时候。会启动一个Server,负责接受DockerClient发送的请求，然后Server会通过路由分...
                 </div>
             </a>
             <div class="abstract-post-meta">
@@ -152,15 +157,15 @@ Go语言用到了通道类型来监听信号的到来。
                 
                 <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-href = Go>Go</a>
+        <a class="post-tag" href="javascript:void(0);" data-href = docker>docker</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-href = 操作系统>操作系统</a>
+        <a class="post-tag" href="javascript:void(0);" data-href = go>go</a>
     
 </div>
                 
                 <!-- date  -->
                 <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2017/09/10</span>
+                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2017/09/09</span>
                 </div>
             </div>
         </article>
@@ -168,17 +173,24 @@ Go语言用到了通道类型来监听信号的到来。
     
     
         <article class="index-post">
-            <a class="content-show-full" href = "/2017/09/06/并发编程（一）/" >
+            <a class="content-show-full" href = "/2017/09/08/docker学习（二/" >
                     <h2 class="abstract-title">
                         
-                        <span>并发编程（一）</span>
+                        <span>Docker学习（二)</span>
                     </h2>
                 <div class="abstract-content">
-                    来自操作系统的概念
-这个主要是想自己回顾一下
-并发的来源并发在很早计算机理念中就提出了，其思想来源于多任务操作系统（翻操作系统书看到的），与其单用户操作系统不同，多任务可以允许用户同时执行多个程序。
-并发程序，并行程序，串行程序日常大佬教育新人的撕逼主题，串行程序很好理解，程序必须按特定程序执行，而并发则可以同时执行两个以上的程序，至于并发和并行程序嗯区别，有的文档和文献经常把两个理念混淆，这个理念不能混淆，我这里就不细写了，详情可参照go语言的官方解释
-进程在操作系统里，通常把程序的执行称为进程，嗯，没错，程序的执行，这个是动态的概念，它是操作系统资源分配的基本单位，当然还有一个概念叫...
+                    Docker的架构
+From Docker源码分析（孙宏亮）
+
+Docker总架构
+Docker Client
+DockerClient用于与DockerDaemon建立通讯，用户使用docker指令使用DockerClient，发起众多的Docker容器管理请求。
+
+Docker Daemon
+DockerDaemon是Docker架构中一个常驻在后台的系统进程，其主要作用在于两方面：
+
+接受并处理DockerClient发送的请求
+管理所有的Docker在DockerDaemon运行时候。会启动一个Server,负责接受DockerClient发送的请求，然后Server会通过路由分...
                 </div>
             </a>
             <div class="abstract-post-meta">
@@ -186,15 +198,15 @@ Go语言用到了通道类型来监听信号的到来。
                 
                 <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-href = Go>Go</a>
+        <a class="post-tag" href="javascript:void(0);" data-href = docker>docker</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-href = 操作系统>操作系统</a>
+        <a class="post-tag" href="javascript:void(0);" data-href = go>go</a>
     
 </div>
                 
                 <!-- date  -->
                 <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2017/09/06</span>
+                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2017/09/08</span>
                 </div>
             </div>
         </article>
@@ -329,7 +341,18 @@ Go语言用到了通道类型来监听信号的到来。
     
     
     
-    <div class="total-archive"> Total : 8 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 9 </div>
     
     <div class="post-archive">
     
@@ -338,6 +361,11 @@ Go语言用到了通道类型来监听信号的到来。
     
     <div class="archive-year"> 2017 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/11</span><a class="archive-post-title" href= "/2017/09/11/Go语言编程哲学总结和自己的进度汇报/" >Go语言编程哲学总结和自己的进度汇报</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -384,6 +412,8 @@ Go语言用到了通道类型来监听信号的到来。
         <div class="sidebar-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name"><a href= "#">Go</a></span>
+    
         <span class="sidebar-tag-name"><a href= "#">docker</a></span>
     
         <span class="sidebar-tag-name"><a href= "#">go</a></span>
@@ -392,7 +422,85 @@ Go语言用到了通道类型来监听信号的到来。
     
         <span class="sidebar-tag-name"><a href= "#">blog</a></span>
     
+        <span class="sidebar-tag-name"><a href= "#">操作系统</a></span>
+    
+    </div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #888; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: false
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tag-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var jsInfo = {
+        root: '/'
+    }
+</script>
+    <!-- 不蒜子  -->
+    
+    <!-- CNZZ统计  -->
+    
+    </div>
+    </body>
+</html>
+
+
+）/" >并发编程（一）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/06</span><a class="archive-post-title" href= "/2017/09/06/docker学习-一/" >docker学习(一)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/04</span><a class="archive-post-title" href= "/2017/09/04/小白开始写blog了/" >小白开始写blog了</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/04</span><a class="archive-post-title" href= "/2017/09/04/hello-world/" >Hello World</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-tags">
+    <div class="sidebar-tags-name">
+    
         <span class="sidebar-tag-name"><a href= "#">Go</a></span>
+    
+        <span class="sidebar-tag-name"><a href= "#">docker</a></span>
+    
+        <span class="sidebar-tag-name"><a href= "#">go</a></span>
+    
+        <span class="sidebar-tag-name"><a href= "#">web</a></span>
+    
+        <span class="sidebar-tag-name"><a href= "#">blog</a></span>
     
         <span class="sidebar-tag-name"><a href= "#">操作系统</a></span>
     
