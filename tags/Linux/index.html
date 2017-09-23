@@ -132,19 +132,31 @@
     
     
         <article class="index-post">
-            <a class="content-show-full" href = "/2017/09/10/并发编程（二）/" >
+            <a class="content-show-full" href = "/2017/09/23/Docker实现中的基础技术——Linux-Namespace/" >
                     <h2 class="abstract-title">
                         
-                        <span>并发编程（二）</span>
+                        <span>Docker实现中的基础技术——Linux Namespace</span>
                     </h2>
                 <div class="abstract-content">
-                    信号（signal）
-操作系统信号是IPC中唯一一种异步的通讯方式，其本质为用软件来看模拟硬件的中断机制。作用为用于通知进程某个事件发生。如，Linux操作系统中，按下Ctrl+C中止信息。kill指令也是同样有信号机制参与。Linux中的信号量有以”SIG”为前缀。可以通过kill -l查看kill指令支持的信号。个人理解:信号机制是Go语言并发中切换goroutine的方式。
+                    Docker实现中的基础技术——Linux NamespaceLinux Namespace
+LinuxNamespace是Linux Kernel的一个功能，它可以隔离一系列的系统资源，，如PID、UserID、Network等。Linux Namespace的作用在于，在系统上为用户开辟一块Namespace，在Namespace里，你具有root权限，而隔离了其他的Namespace.
 
-os/signal
-Go语言用到了通道类型来监听信号的到来。
+Linux 具有6种不同类型Namespace
 
-接口类型os.Signal1234type Signal interface &#123;	String() string	Signal() /...
+
+Namespace类型
+系统调用参数
+内核版本
+
+
+
+
+Mount Namespace
+CLONE_NEWNS
+2.4.19
+
+
+UTS Nam...
                 </div>
             </a>
             <div class="abstract-post-meta">
@@ -152,49 +164,17 @@ Go语言用到了通道类型来监听信号的到来。
                 
                 <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-href = Go>Go</a>
+        <a class="post-tag" href="javascript:void(0);" data-href = go>go</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-href = 操作系统>操作系统</a>
+        <a class="post-tag" href="javascript:void(0);" data-href = docker>docker</a>
     
-</div>
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2017/09/10</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="content-show-full" href = "/2017/09/06/并发编程（一）/" >
-                    <h2 class="abstract-title">
-                        
-                        <span>并发编程（一）</span>
-                    </h2>
-                <div class="abstract-content">
-                    来自操作系统的概念
-这个主要是想自己回顾一下
-并发的来源并发在很早计算机理念中就提出了，其思想来源于多任务操作系统（翻操作系统书看到的），与其单用户操作系统不同，多任务可以允许用户同时执行多个程序。
-并发程序，并行程序，串行程序日常大佬教育新人的撕逼主题，串行程序很好理解，程序必须按特定程序执行，而并发则可以同时执行两个以上的程序，至于并发和并行程序嗯区别，有的文档和文献经常把两个理念混淆，这个理念不能混淆，我这里就不细写了，详情可参照go语言的官方解释
-进程在操作系统里，通常把程序的执行称为进程，嗯，没错，程序的执行，这个是动态的概念，它是操作系统资源分配的基本单位，当然还有一个概念叫...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = Go>Go</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = 操作系统>操作系统</a>
+        <a class="post-tag" href="javascript:void(0);" data-href = Linux>Linux</a>
     
 </div>
                 
                 <!-- date  -->
                 <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2017/09/06</span>
+                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2017/09/23</span>
                 </div>
             </div>
         </article>
